@@ -40,16 +40,32 @@ await bol.stock(offer_id, stock, tries);
 https://api.bol.com/retailer/public/redoc/v7/retailer.html#operation/put-offer
 ```javascript
 let offer_id = "",
-    fulfilment = "1-2d", // see docs for all codes
+    fulfilment = {method: "FBR", deliveryCode: "1-2d"}, // see docs for all codes
     tries = 3; // default
 await bol.delivery(offer_id, fulfilment, tries);
 ```
 ### Offer export
 https://api.bol.com/retailer/public/redoc/v7/retailer.html#operation/get-offer-export
+Please note this is blocking code, resolves once bol servers return csv export. Automatically converted to JSON format.
 ```javascript
 let tries = 3; // default
 await bol.export(tries);
-// returns csv in JSON format
+/* returns csv in JSON format
+  [{
+    offerId: '',
+    ean: '',
+    conditionName: 'NEW',
+    conditionCategory: 'NEW',
+    conditionComment: '',
+    bundlePricesPrice: '29.95',
+    fulfilmentDeliveryCode: '4-8d',
+    stockAmount: '999',
+    onHoldByRetailer: 'false',
+    fulfilmentType: 'FBR',
+    mutationDateTime: '2022-09-20 15:08:15.519 UTC',
+    referenceCode: ''
+  }]
+*/
 ```
 ### Get orders
 https://api.bol.com/retailer/public/redoc/v7/retailer.html#operation/get-orders
@@ -58,6 +74,13 @@ let page = 1,
     status = "ALL", // "OPEN" || "ALL"
     tries = 3; // default
 await bol.orders(page, status, tries);
+/* returns array
+  [{
+    orderId: '',
+    orderPlacedDateTime: '2022-12-30T20:24:09+01:00',
+    orderItems: [ [Object] ]
+  }]
+*/
 ```
 ### Order detail
 https://api.bol.com/retailer/public/redoc/v7/retailer.html#operation/get-order
