@@ -44,6 +44,27 @@ let tries = 3; // default
 await bol.export(tries);
 // returns csv in JSON format
 ```
+### Get orders
+```javascript
+let page = 1,
+    status = "",
+    tries = 3; // default
+await bol.orders(page, status, tries);
+```
+### Order detail
+```javascript
+let order_id = "",
+    tries = 3; // default
+await bol.detail(order_id, tries);
+```
+### Set price
+Currently no bundlePrices support please open a issue if you would like to see this feature.
+```javascript
+let offer_id = "",
+    price = 19.99,
+    tries = 3; // default
+await bol.price(offer_id, price, tries);
+```
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
