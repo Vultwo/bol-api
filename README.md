@@ -29,7 +29,7 @@ let offer_id = "",
     stock = 123, // max = 999
     managedByRetailer = true,
     tries = 3; // default
-await bol.pause(offer_id, stock, tries);
+await bol.stock(offer_id, stock, tries);
 ```
 ### Set delivery
 ```javascript
