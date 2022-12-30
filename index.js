@@ -22,7 +22,7 @@ class Bol {
   async bolAccess(tries=3) {
     return new Promise(async(resolve, reject) => {
       try {
-        let resp = await fetch('https://login.bol.com/token?grant_type=client_credentials', {method: 'POST', body: {}, headers: {"Content-Type": "application/json", "Authorization": "Basic " + Buffer.from(this.APIKEY + ":" + this.SECRET).toString('base64')}});
+        let resp = await fetch('https://login.bol.com/token?grant_type=client_credentials', {method: 'POST', body: {}, headers: {"Content-Type": "application/json", "Authorization": "Basic " + Buffer.from(this.API + ":" + this.SECRET).toString('base64')}});
             resp = await resp.json();
         this.bol_token = resp.access_token;
         this.expires_in = new Date().getTime() + resp.expires_in * 1000;
@@ -44,7 +44,7 @@ class Bol {
         console.error(e);
         tries--;
         if(tries <= 0) return reject(e);
-        return setTimeout(() => resolve(this.pause(offer_id, hold, fulfilment, tries)), 2000);
+        return setTimeout(() => resolve(this.pause(offer_id, hold, method, tries)), 2000);
       }
     });
   }
@@ -84,7 +84,7 @@ class Bol {
         let resp = await fetch('https://api.bol.com/retailer/offers/export', {method: 'POST', body: JSON.stringify({format: 'CSV'}), headers: headers});
             resp = await resp.json();
         let exportId = resp.processStatusId, csv;
-        if(!resp.links) return reject();
+        if(!resp.links) return reject(resp);
         do {
           await new Promise(res => setTimeout(res, 20e3));
           headers = await this.bolHeader(3);
@@ -116,7 +116,9 @@ class Bol {
           }
         } while(!csv);
         csvConverter().fromFile('./export_offers.csv').then(json => {
-          return resolve(json);
+          fs.unlink('./export_offers.csv', (err) => {
+            return resolve(json);            
+          });
         }).catch(err => {
           console.error(err);
           return reject();
