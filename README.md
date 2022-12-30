@@ -1,6 +1,7 @@
 # Bol API
-API functions for bol.com sellers
+API functions for bol.com sellers<br>
 v7 api: https://api.bol.com/retailer/public/redoc/v7/retailer.html
+<br>
 Let me know if you require any additional functions.
 ## Installation
 
@@ -67,7 +68,7 @@ await bol.detail(order_id, tries);
 ```
 ### Set price
 https://api.bol.com/retailer/public/redoc/v7/retailer.html#operation/update-offer-price
-Currently no bundlePrices support please open a issue if you would like to see this feature.
+<br>Currently no bundlePrices support please open a issue if you would like to see this feature.
 ```javascript
 let offer_id = "",
     price = 19.99,
