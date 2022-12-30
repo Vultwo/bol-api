@@ -1,6 +1,7 @@
 # Bol API
-API functions for bol.com sellers
+API functions for bol.com sellers<br>
 v7 api: https://api.bol.com/retailer/public/redoc/v7/retailer.html
+<br>
 Let me know if you require any additional functions.
 ## Installation
 
