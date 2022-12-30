@@ -34,7 +34,7 @@ class Bol {
       }
     });
   }
-  async pause(offer_id, hold, fulfilment, tries=3) {
+  async pause(offer_id, hold, method, tries=3) {
     return new Promise(async(resolve, reject) => {
       try {
         let resp = await fetch('https://api.bol.com/retailer/offers/' + offer_id, {method: 'PUT', body: JSON.stringify({onHoldByRetailer: hold, fulfilment: {method: method}}), headers: await this.bolHeader(2)});
