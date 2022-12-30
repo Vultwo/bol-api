@@ -1,0 +1,19 @@
+{
+  "name": "bol-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vultwo/bol-api.git"
+  },
+  "author": "Nino Kroesen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Vultwo/bol-api/issues"
+  },
+  "homepage": "https://github.com/Vultwo/bol-api#readme"
+}
