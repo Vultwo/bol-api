@@ -11,7 +11,7 @@ class Bol {
     return new Promise(async(resolve, reject) => {
       try {
         if(!this.bol_token || this.expires_in < new Date().getTime()) await this.bolAccess(tries);
-        return resolve({"Accept": "application/vnd.retailer.v7+json", "Content-Type": 'application/vnd.retailer.v7+json', "Authorization": "Bearer " + this.bol_token});
+        return resolve({"Accept": "application/vnd.retailer.v9+json", "Content-Type": 'application/vnd.retailer.v9+json', "Authorization": "Bearer " + this.bol_token});
       } catch(e) {
         tries--;
         if(tries <= 0) return reject(e);
@@ -93,7 +93,7 @@ class Bol {
           if(status.status == 'SUCCESS') {
             exportId = status.entityId;
             headers = await this.bolHeader(3);
-            headers['Accept'] = 'application/vnd.retailer.v7+csv';
+            headers['Accept'] = 'application/vnd.retailer.v9+csv';
             headers['Content-Type'] = 'application/x-www-form-urlencoded';
             let exported = await fetch('https://api.bol.com/retailer/offers/export/' + exportId, {method: 'GET', headers: headers});
             if(exported.status != 200) return reject();
@@ -117,7 +117,7 @@ class Bol {
         } while(!csv);
         csvConverter().fromFile('./export_offers.csv').then(json => {
           fs.unlink('./export_offers.csv', (err) => {
-            return resolve(json);            
+            return resolve(json);
           });
         }).catch(err => {
           console.error(err);
